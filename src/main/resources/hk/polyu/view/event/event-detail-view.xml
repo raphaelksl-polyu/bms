@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://eventDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="eventDc"
+                  class="hk.polyu.entity.Event">
+            <fetchPlan extends="_base">
+                <property name="creatorTeacher" fetchPlan="_base"/>
+                <property name="hostTeacher" fetchPlan="_base"/>
+                <property name="subject" fetchPlan="_base"/>
+                <property name="timeslotClusters" fetchPlan="_base"/>
+                <property name="studentInvitees" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader/>
+            <collection id="timeslotClustersDc" property="timeslotClusters"/>
+            <collection id="studentInviteesDc" property="studentInvitees"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="eventDc">
+            <textField id="nameField" property="name"/>
+            <entityPicker id="subjectField" property="subject">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <entityPicker id="creatorTeacherField" property="creatorTeacher">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <entityPicker id="hostTeacherField" property="hostTeacher">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <textField id="timeslotDurationField" property="timeslotDuration"/>
+            <textField id="cooldownDurationField" property="cooldownDuration"/>
+            <textField id="minimumTimeslotPreferenceDeclarationCountField"
+                       property="minimumTimeslotPreferenceDeclarationCount"/>
+            <dateTimePicker id="timeslotPreferenceDeclarationDeadlineField"
+                            property="timeslotPreferenceDeclarationDeadline"/>
+        </formLayout>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button action="timeslotClustersDataGrid.create"/>
+            <button action="timeslotClustersDataGrid.edit"/>
+            <button action="timeslotClustersDataGrid.remove"/>
+            <button action="timeslotClustersDataGrid.generateTimeslots"/>
+        </hbox>
+        <dataGrid id="timeslotClustersDataGrid" dataContainer="timeslotClustersDc" width="100%" height="100%">
+            <actions>
+                <action id="create" type="list_create" text="msg:///actions.Create"/>
+                <action id="edit" type="list_edit" text="msg:///actions.Edit"/>
+                <action id="remove" type="list_remove" text="msg:///actions.Remove"/>
+                <action id="generateTimeslots" text="msg://generateTimeslots.text"/>
+            </actions>
+            <columns>
+                <column property="startDatetime"/>
+                <column property="endDatetime"/>
+            </columns>
+        </dataGrid>
+        <hbox id="buttonsPanel2" classNames="buttons-panel">
+            <button action="studentInviteesDataGrid.create"/>
+            <button action="studentInviteesDataGrid.edit"/>
+            <button action="studentInviteesDataGrid.remove"/>
+            <button action="studentInviteesDataGrid.inviteStudents"/>
+        </hbox>
+        <dataGrid id="studentInviteesDataGrid" dataContainer="studentInviteesDc" width="100%" height="100%">
+            <actions>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="remove" type="list_remove"/>
+                <action id="inviteStudents" text="msg://inviteStudents.text"/>
+            </actions>
+            <columns>
+                <column property="student"/>
+            </columns>
+        </dataGrid>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

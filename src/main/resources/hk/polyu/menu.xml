@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu-config xmlns="http://jmix.io/schema/flowui/menu">
+
+    <menu id="application" title="msg://hk.polyu/menu.application.title" opened="true">
+        <item view="bms_User.list" title="msg://hk.polyu.view.user/UserListView.title"/>
+        <item view="bms_Event.list" title="msg://hk.polyu.view.event/eventListView.title"/>
+        <item view="bms_Subject.list" title="msg://hk.polyu.view.subject/subjectListView.title"/>
+        <item view="bms_TimeslotCluster.list"
+              title="msg://hk.polyu.view.timeslotcluster/timeslotClusterListView.title"/>
+        <item view="bms_SubjectStudentEnrollment.list"
+              title="msg://hk.polyu.view.subjectstudentenrollment/subjectStudentEnrollmentListView.title"/>
+        <item view="bms_EventStudentInvitee.list"
+              title="msg://hk.polyu.view.eventstudentinvitee/eventStudentInviteeListView.title"/>
+        <item view="bms_StudentTimeslotPreference.list"
+              title="msg://hk.polyu.view.studenttimeslotpreference/studentTimeslotPreferenceListView.title"/>
+        <item view="bms_GeneratedTimeslot.list"
+              title="msg://hk.polyu.view.generatedtimeslot/generatedTimeslotListView.title"/>
+        <item view="bms_TimeslotStudentAllocation.list"
+              title="msg://hk.polyu.view.timeslotstudentallocation/timeslotStudentAllocationListView.title"/>
+    </menu>
+
+</menu-config>

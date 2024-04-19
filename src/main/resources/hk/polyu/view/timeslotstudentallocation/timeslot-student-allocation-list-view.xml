@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://timeslotStudentAllocationListView.title"
+      focusComponent="timeslotStudentAllocationsDataGrid">
+    <data>
+        <collection id="timeslotStudentAllocationsDc"
+                    class="hk.polyu.entity.TimeslotStudentAllocation">
+            <fetchPlan extends="_base">
+                <property name="generatedTimeslot" fetchPlan="_base">
+                    <property name="timeslotCluster" fetchPlan="_base">
+                        <property name="event" fetchPlan="_base"/>
+                    </property>
+                </property>
+                <property name="student" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="timeslotStudentAllocationsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from bms_TimeslotStudentAllocation e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="timeslotStudentAllocationsDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="createBtn" action="timeslotStudentAllocationsDataGrid.create"/>
+            <button id="editBtn" action="timeslotStudentAllocationsDataGrid.edit"/>
+            <button id="removeBtn" action="timeslotStudentAllocationsDataGrid.remove"/>
+            <simplePagination id="pagination" dataLoader="timeslotStudentAllocationsDl"/>
+        </hbox>
+        <dataGrid id="timeslotStudentAllocationsDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="timeslotStudentAllocationsDc"
+                  columnReorderingAllowed="true"
+                  selectionMode="MULTI">
+            <actions>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="generatedTimeslot.timeslotCluster.event.name"/>
+                <column property="generatedTimeslot.startDatetime"/>
+                <column property="generatedTimeslot.endDatetime"/>
+                <column property="student"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>
